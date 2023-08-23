@@ -1,0 +1,56 @@
+calculator app that performs basic arithmetic operations like addition, subtraction, multiplication, and division.
+using Python's tkinter library, which is commonly used for creating desktop GUI applications.
+
+Code:
+
+import tkinter as tk
+
+class CalculatorApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Calculator")
+
+        self.result_var = tk.StringVar()
+        self.result_var.set("")
+        self.create_display()
+        self.create_buttons()
+
+    def create_display(self):
+        display = tk.Entry(self.root, textvariable=self.result_var, font=("Arial", 24), bd=10, insertwidth=1, width=15)
+        display.grid(row=0, column=0, columnspan=4)
+
+    def create_buttons(self):
+        button_texts = [
+            '7', '8', '9', '/',
+            '4', '5', '6', '*',
+            '1', '2', '3', '-',
+            'C', '0', '=', '+'
+        ]
+
+        row_val = 1
+        col_val = 0
+
+        for btn_text in button_texts:
+            tk.Button(self.root, text=btn_text, padx=20, pady=20, font=("Arial", 16), command=lambda text=btn_text: self.on_button_click(text)).grid(row=row_val, column=col_val)
+            col_val += 1
+            if col_val > 3:
+                col_val = 0
+                row_val += 1
+
+    def on_button_click(self, text):
+        if text == '=':
+            try:
+                result = eval(self.result_var.get())
+                self.result_var.set(result)
+            except:
+                self.result_var.set("Error")
+        elif text == 'C':
+            self.result_var.set("")
+        else:
+            current_text = self.result_var.get()
+            self.result_var.set(current_text + text)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = CalculatorApp(root)
+    root.mainloop()
