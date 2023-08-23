@@ -1,0 +1,28 @@
+Python program using the tkinter library to create a single-screen layout with a toggle button to control a virtual "flashligh.
+
+import tkinter as tk
+
+class FlashlightApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Flashlight App")
+
+        self.flashlight_on = False
+
+        self.create_toggle_button()
+
+    def create_toggle_button(self):
+        self.toggle_button = tk.Button(self.root, text="Flashlight", font=("Arial", 16), command=self.toggle_flashlight)
+        self.toggle_button.pack(pady=20)
+
+    def toggle_flashlight(self):
+        self.flashlight_on = not self.flashlight_on
+        if self.flashlight_on:
+            self.toggle_button.config(text="Flashlight On", bg="yellow")
+        else:
+            self.toggle_button.config(text="Flashlight Off", bg="lightgray")
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = FlashlightApp(root)
+    root.mainloop()
